@@ -1,5 +1,3 @@
-
-
 ruler_size_lengh=150;
 ruler_size_width=50;
 ruler_size_hight=2;
@@ -28,6 +26,8 @@ one_minute_lengh= (1/60)*speed*1.852*1000000/map_scale;
 nb_fentes = floor(ruler_size_lengh/one_minute_lengh);
 
 font = "Arcline";
+
+$fn=50;
     
 //projection() 
 difference(){
@@ -37,7 +37,7 @@ difference(){
         
     //PON
         translate([pon_offsetX,pon_offsetY,0])
-            cylinder(h=ruler_size_hight*2+1,r=pon_radius,center=true,$fn=100);
+            cylinder(h=ruler_size_hight*2+1,r=pon_radius,center=true);
         
     // Triangle
          translate([25,38,-1])
@@ -54,12 +54,12 @@ difference(){
             
                 //Leg cylindre début
                 translate([pon_offsetX+gap_btw_leg+pon_radius/2,pon_offsetY,0])
-                    cylinder(h=ruler_size_hight*2+1,r=fente_size/2,center=true,$fn=100);
+                    cylinder(h=ruler_size_hight*2+1,r=fente_size/2,center=true);
               
                 //Leg cylindre fin
                 translate([
                     (nb_fentes-i)*one_minute_lengh+pon_offsetX+gap_btw_leg-high_margin_leg,pon_offsetY,0])
-                    cylinder(h=ruler_size_hight*2+1,r=fente_size/2,center=true,$fn=100);
+                    cylinder(h=ruler_size_hight*2+1,r=fente_size/2,center=true);
             }
        }   
           
@@ -76,12 +76,12 @@ difference(){
             //Fente cylindre droit
             translate([pon_offsetX,pon_offsetY-fente_width/2,0])
             translate([dx,gap_btw_leg,0])
-                cylinder(h=ruler_size_hight*2+1,r=fente_size/2,center=false,$fn=100);
+                cylinder(h=ruler_size_hight*2+1,r=fente_size/2,center=false);
           
             //Fente cylindre gauche
             translate([pon_offsetX,pon_offsetY+fente_width/2,0])
             translate([dx,gap_btw_leg,0])
-                cylinder(h=ruler_size_hight*2+1,r=fente_size/2,center=true,$fn=100);
+                cylinder(h=ruler_size_hight*2+1,r=fente_size/2,center=true);
             //Texte
             translate([pon_offsetX-2,pon_offsetY+fente_width/2+1,-1])
             translate([dx,gap_btw_leg+gap_btw_fentes_texte,0])
@@ -102,12 +102,12 @@ difference(){
             //Fente cylindre gauche
             translate([pon_offsetX,pon_offsetY-fente_width/4-(fente_width/4),0])
             translate([dx,gap_btw_leg,0])
-                cylinder(h=ruler_size_hight*2+1,r=fente_size/2,center=false,$fn=100);
+                cylinder(h=ruler_size_hight*2+1,r=fente_size/2,center=false);
               
             //Fente cylindre droit
             translate([pon_offsetX,pon_offsetY+fente_width/4-(fente_width/4),0])
             translate([dx,gap_btw_leg,0])
-                cylinder(h=ruler_size_hight*2+1,r=fente_size/2,center=true,$fn=100);
+                cylinder(h=ruler_size_hight*2+1,r=fente_size/2,center=true);
         }
     }
 
