@@ -87,7 +87,7 @@ difference(){
             translate([dx,gap_btw_leg+gap_btw_fentes_texte,0])
                 rotate([0,0,270])
                 linear_extrude(ruler_size_hight+2)
-                text(str(i), font=font, size=5, halign = "right");
+                text(str(i), font=font, size=9, halign = "right");
         }
     }
         
