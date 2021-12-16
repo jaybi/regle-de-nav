@@ -40,7 +40,7 @@ difference(){
             cylinder(h=ruler_size_hight*2+1,r=pon_radius,center=true);
         
     // Triangle
-         translate([23,38,-1])
+         translate([23,39,-1])
             cylinder(h=10,r=10,$fn=3, center=false);
       
     //Leg
@@ -137,8 +137,8 @@ difference(){
 }
 
 //renfort
-translate([ruler_size_lengh/2,0,0])
-    cube([1,pon_offsetX+1,ruler_size_hight]);
+//translate([ruler_size_lengh/2,0,0])
+//    cube([1,pon_offsetX+1,ruler_size_hight]);
    
 
 
