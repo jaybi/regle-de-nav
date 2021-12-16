@@ -1,4 +1,4 @@
-ruler_size_lengh=170;
+ruler_size_lengh=150;
 ruler_size_width=50;
 ruler_size_hight=2;
 
@@ -18,8 +18,8 @@ fente_width=8;
 fente_size=1.5;
 
 //Vitesse en kts
-speed=120;
-map_scale=500000;
+speed=100;
+map_scale=250000;
 one_minute_lengh= (1/60)*speed*1.852*1000000/map_scale;
 
 //nombre de fentes
