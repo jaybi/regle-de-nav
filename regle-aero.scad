@@ -42,6 +42,10 @@ difference(){
     // Triangle
          translate([23,39,-1])
             cylinder(h=10,r=10,$fn=3, center=false);
+    
+    // Rectangle
+        translate([40,35,-1])
+            cube([20,10,4]);
       
     //Leg
         //Leg rectangle
