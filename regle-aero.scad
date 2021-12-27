@@ -29,7 +29,7 @@ font = "Arcline:style=Bold";
 
 $fn=50;
     
-projection() 
+//projection() 
 difference(){
 
     //Ruler base
