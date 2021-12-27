@@ -25,11 +25,11 @@ one_minute_lengh= (1/60)*speed*1.852*1000000/map_scale;
 //nombre de fentes
 nb_fentes = floor(ruler_size_lengh/one_minute_lengh);
 
-font = "Arcline";
+font = "Arcline:style=Bold";
 
 $fn=50;
     
-//projection() 
+projection() 
 difference(){
 
     //Ruler base
@@ -91,7 +91,7 @@ difference(){
             translate([dx,gap_btw_leg+gap_btw_fentes_texte,0])
                 rotate([0,0,270])
                 linear_extrude(ruler_size_hight+2)
-                text(str(i), font=font, size=9, halign = "right");
+                text(str(i), font=font, size=10, halign = "right");
         }
     }
         
