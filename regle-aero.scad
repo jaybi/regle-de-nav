@@ -34,6 +34,7 @@ $fn=50;
 
 //ISO 838
 espace_entre_trous=80;
+hole_radius=3;
 
 //Rectangle
 rect_long=20;
@@ -51,9 +52,9 @@ difference(){
     translate([ruler_size_lengh/2,ruler_size_width,0]){     //Déplacement en haut à gauche
         translate([2,-8,0]){
             translate([espace_entre_trous/2,0,0])
-                cylinder(h=10, r=2.5, center=true);
+                cylinder(h=10, r=hole_radius, center=true);
             translate([-espace_entre_trous/2,0,0])
-                cylinder(h=10, r=2.5, center=true);
+                cylinder(h=10, r=hole_radius, center=true);
         }
     }
     
