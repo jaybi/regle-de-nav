@@ -28,13 +28,21 @@ nb_fentes = floor(ruler_size_lengh/one_minute_lengh);
 font = "Arcline:style=Bold";
 
 $fn=50;
-    
+
 //projection() 
 difference(){
-
     //Ruler base
     cube([ruler_size_lengh,ruler_size_width,ruler_size_hight]);
-        
+    
+    //Trous pour rangement dans un classeur Norme ISO 838
+    translate([ruler_size_lengh,ruler_size_width,0]){     //Déplacement en haut à gauche
+            translate([-5,-12/*ISO*/,0]){
+                cylinder(h=10, r=2.5, center=true);
+                translate([-80/*ISO*/,0,0])
+                cylinder(h=10, r=2.5/*ISO*/, center=true);
+            }
+    }
+    
     //PON
         translate([pon_offsetX,pon_offsetY,0])
             cylinder(h=ruler_size_hight*2+1,r=pon_radius,center=true);
@@ -51,7 +59,6 @@ difference(){
         //Leg rectangle
         
         for(i=[0:1:3]) {
-            echo((nb_fentes-i)*one_minute_lengh-gap_btw_leg-high_margin_leg);
             if((nb_fentes-i)*one_minute_lengh-gap_btw_leg < ruler_size_lengh) {
                 translate([pon_offsetX+gap_btw_leg+pon_radius/2,pon_offsetY-fente_size/2,-1])
                     cube([(nb_fentes-i)*one_minute_lengh-high_margin_leg-pon_radius/2,fente_size,5],center=false);
