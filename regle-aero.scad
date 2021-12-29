@@ -1,8 +1,10 @@
+use <roundedcube.scad>;
+
 ruler_size_lengh=150;
 ruler_size_width=50;
 ruler_size_hight=2;
 
-//MArgins
+//Margins
 high_margin = 15;
 high_margin_leg = 20;
 
@@ -27,20 +29,32 @@ nb_fentes = floor(ruler_size_lengh/one_minute_lengh);
 
 font = "Arcline:style=Bold";
 
+//Définition des cercles
 $fn=50;
+
+//ISO 838
+espace_entre_trous=80;
+
+//Rectangle
+rect_long=20;
+rect_larg=10;
+rect_haut=10;
+rect_left_margin=2;
 
 //projection() 
 difference(){
     //Ruler base
-    cube([ruler_size_lengh,ruler_size_width,ruler_size_hight]);
+    
+    roundedcube([ruler_size_lengh,ruler_size_width,ruler_size_hight],false,1,"z");
     
     //Trous pour rangement dans un classeur Norme ISO 838
-    translate([ruler_size_lengh,ruler_size_width,0]){     //Déplacement en haut à gauche
-            translate([-5,-12/*ISO*/,0]){
+    translate([ruler_size_lengh/2,ruler_size_width,0]){     //Déplacement en haut à gauche
+        translate([2,-8,0]){
+            translate([espace_entre_trous/2,0,0])
                 cylinder(h=10, r=2.5, center=true);
-                translate([-80/*ISO*/,0,0])
-                cylinder(h=10, r=2.5/*ISO*/, center=true);
-            }
+            translate([-espace_entre_trous/2,0,0])
+                cylinder(h=10, r=2.5, center=true);
+        }
     }
     
     //PON
@@ -52,8 +66,8 @@ difference(){
             cylinder(h=10,r=10,$fn=3, center=false);
     
     // Rectangle
-        translate([40,35,-1])
-            cube([20,10,4]);
+        translate([ruler_size_lengh/2,ruler_size_width-rect_larg/2-rect_left_margin,-1])
+            cube([rect_long,rect_larg,rect_haut],center=true);
       
     //Leg
         //Leg rectangle
