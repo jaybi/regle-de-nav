@@ -1,7 +1,11 @@
 use <roundedcube.scad>;
 
-ruler_size_lengh=150;
-ruler_size_width=50;
+
+//Paremètres importants :
+speed=100;
+map_scale=250000;
+ruler_size_lengh=200;
+ruler_size_width=55;
 ruler_size_hight=2;
 
 //Margins
@@ -14,20 +18,22 @@ pon_offsetX = 10;
 pon_offsetY = 10;
 
 //Graduations
-gap_btw_fentes_texte = 2;
-gap_btw_leg=8;
+gap_btw_fentes_texte = 3;
+gap_btw_leg=10;
 fente_width=8;
-fente_size=1.5;
+fente_size=2.5;
+font_size=10;
 
-//Vitesse en kts
-speed=100;
-map_scale=250000;
+//Taille des graduations
 one_minute_lengh= (1/60)*speed*1.852*1000000/map_scale;
 
 //nombre de fentes
 nb_fentes = floor(ruler_size_lengh/one_minute_lengh);
 
-font = "Arcline:style=Bold";
+//font = "Arcline:style=bold";
+//font = "X.Template";
+font = "Cleanwork";
+
 
 //Définition des cercles
 $fn=50;
@@ -41,6 +47,9 @@ rect_long=20;
 rect_larg=10;
 rect_haut=10;
 rect_left_margin=2;
+
+//Triangle
+triangle_size=10;
 
 //projection() 
 difference(){
@@ -59,12 +68,12 @@ difference(){
     }
     
     //PON
-        translate([pon_offsetX,pon_offsetY,0])
-            cylinder(h=ruler_size_hight*2+1,r=pon_radius,center=true);
+        translate([pon_offsetX,pon_offsetY,-1])
+            cylinder(h=10,r=pon_radius,center=false);
         
     // Triangle
-         translate([23,39,-1])
-            cylinder(h=10,r=10,$fn=3, center=false);
+         translate([45,ruler_size_width-10,-1])
+            cylinder(h=10,r=triangle_size,$fn=3, center=false);
     
     // Rectangle
         translate([ruler_size_lengh/2,ruler_size_width-rect_larg/2-rect_left_margin,-1])
@@ -75,17 +84,16 @@ difference(){
         
         for(i=[0:1:3]) {
             if((nb_fentes-i)*one_minute_lengh-gap_btw_leg < ruler_size_lengh) {
-                translate([pon_offsetX+gap_btw_leg+pon_radius/2,pon_offsetY-fente_size/2,-1])
-                    cube([(nb_fentes-i)*one_minute_lengh-high_margin_leg-pon_radius/2,fente_size,5],center=false);
+                translate([pon_offsetX+gap_btw_leg+pon_radius/2-2,pon_offsetY-fente_size/2,-1])
+                    cube([(nb_fentes-i)*one_minute_lengh-high_margin_leg-pon_radius/2-2,fente_size,5],center=false);
             
                 //Leg cylindre début
-                translate([pon_offsetX+gap_btw_leg+pon_radius/2,pon_offsetY,0])
-                    cylinder(h=ruler_size_hight*2+1,r=fente_size/2,center=true);
+                translate([pon_offsetX+gap_btw_leg+pon_radius/2-2,pon_offsetY,0])
+                    cylinder(h=ruler_size_hight*2+2,r=fente_size/2,center=true);
               
                 //Leg cylindre fin
-                translate([
-                    (nb_fentes-i)*one_minute_lengh+pon_offsetX+gap_btw_leg-high_margin_leg,pon_offsetY,0])
-                    cylinder(h=ruler_size_hight*2+1,r=fente_size/2,center=true);
+                translate([(nb_fentes-i)*one_minute_lengh+pon_offsetX+gap_btw_leg-high_margin_leg-4,pon_offsetY,0])
+                    cylinder(h=ruler_size_hight*2+2,r=fente_size/2,center=true);
             }
        }   
           
@@ -102,18 +110,18 @@ difference(){
             //Fente cylindre droit
             translate([pon_offsetX,pon_offsetY-fente_width/2,0])
             translate([dx,gap_btw_leg,0])
-                cylinder(h=ruler_size_hight*2+1,r=fente_size/2,center=false);
+                cylinder(h=ruler_size_hight*2+2,r=fente_size/2,center=true);
           
             //Fente cylindre gauche
             translate([pon_offsetX,pon_offsetY+fente_width/2,0])
             translate([dx,gap_btw_leg,0])
-                cylinder(h=ruler_size_hight*2+1,r=fente_size/2,center=true);
+                cylinder(h=ruler_size_hight*2+2,r=fente_size/2,center=true);
             //Texte
-            translate([pon_offsetX-2,pon_offsetY+fente_width/2+1,-1])
+            translate([pon_offsetX-5,pon_offsetY+fente_width/2,-1])
             translate([dx,gap_btw_leg+gap_btw_fentes_texte,0])
                 rotate([0,0,270])
                 linear_extrude(ruler_size_hight+2)
-                text(str(i), font=font, size=10, halign = "right");
+                text(str(i), font=font, size=font_size, halign = "right");
         }
     }
         
@@ -128,12 +136,12 @@ difference(){
             //Fente cylindre gauche
             translate([pon_offsetX,pon_offsetY-fente_width/4-(fente_width/4),0])
             translate([dx,gap_btw_leg,0])
-                cylinder(h=ruler_size_hight*2+1,r=fente_size/2,center=false);
+                cylinder(h=ruler_size_hight*2+2,r=fente_size/2,center=true);
               
             //Fente cylindre droit
             translate([pon_offsetX,pon_offsetY+fente_width/4-(fente_width/4),0])
             translate([dx,gap_btw_leg,0])
-                cylinder(h=ruler_size_hight*2+1,r=fente_size/2,center=true);
+                cylinder(h=ruler_size_hight*2+2,r=fente_size/2,center=true);
         }
     }
 
@@ -141,24 +149,23 @@ difference(){
     rotate([0,0,270])
     translate([-ruler_size_width+1,8,1])
     linear_extrude(height=2)
-        text(str(speed), font=font, size=4, halign = "left");
-                
+        text(str(speed), font=font, size=5, halign = "left");
+              
     rotate([0,0,270])
     translate([-ruler_size_width+12,8,1])
     linear_extrude(height=2)
-        text("kts", font=font, size=3, halign = "left");  
+        text("kts", font=font, size=4, halign = "left");  
                 
-    //Text : Echelle
-                
+    //Text : Echelle        
     rotate([0,0,270])
     translate([-ruler_size_width+1,1,1])
     linear_extrude(height=2)
-        text("1/", font=font, size=4, halign = "left"); 
+        text("1/", font=font, size=5, halign = "left"); 
                 
     rotate([0,0,270])
-    translate([-ruler_size_width+5,1,1])
+    translate([-ruler_size_width+7,1,1])
     linear_extrude(height=2)
-        text(str(map_scale), font=font, size=4, halign = "left");         
+        text(str(map_scale), font=font, size=5, halign = "left");         
 
 }
 
